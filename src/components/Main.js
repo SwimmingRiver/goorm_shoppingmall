@@ -19,17 +19,26 @@ const loadProductData=async()=>{
 useEffect(()=>{
     loadProductData();
 },[]);
-console.log(productArr);
+
+useEffect(()=>{
+    if(categories!==""){
+    let arr = productArr.filter((v)=>v.category === categories);
+    setShowingList(()=>[...arr]);
+    }
+    else{
+        setShowingList(()=>[...productArr])
+    }
+},[showingList]);
 return(
     <>
     <h1>Main/products</h1>
-    <h1>{productArr.length}</h1>
+    <h1>items:{showingList.length}</h1>
     <button onClick={()=>{setCategories('')}}>모두</button>
     <button onClick={()=>{setCategories('electronics')}}>전자기기</button>
     <button onClick={()=>{setCategories(`jewelery`)}}>쥬얼리</button>
     <button onClick={()=>{setCategories(`men's clothing`)}}>남성의류</button>
     <button onClick={()=>{setCategories(`women's clothing`)}}>여성의류</button>
-    <ItemList list={productArr}/>
+    <ItemList list={showingList}/>
     </>
     )
 }
