@@ -1,10 +1,10 @@
 import HeadNav from "./components/HeadNav";
-import Main from "./components/Main"
+import Routers from "./routers/Routers";
 function App() {
   return (
     <div className="App">
       <HeadNav/>
-      <Main/>
+      <Routers/>
     </div>
   );
 }
