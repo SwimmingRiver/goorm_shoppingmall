@@ -1,4 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { signOut } from "firebase/auth";
+import { auth } from "../api/firebase";
+import { useDispatch, useSelector } from "react-redux";
+import userSlice from "../reducer/user";
+
 const HeadWrapper = styled.div`
   border:solid 1px black;
   display:flex;
@@ -14,12 +20,24 @@ const NavWrapper = styled.div`
 
 `;
 const HeadNav=()=>{
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const loggedUser = useSelector(state=>state.users);
+    const logout=async()=>{
+        try{
+            await signOut(auth);
+            dispatch(userSlice.actions.logOut());
+        }catch(error){
+            console.error(error);
+        }
+    }
     return(<HeadWrapper>
-        <h1>shop</h1>
+        <h1 onClick={()=>navigate('/')}>shop</h1>
         <NavWrapper>
             <p>cart</p>
-            <p>user</p>
-            <p>login/out</p>
+            {loggedUser?<p>{loggedUser.email}</p>:null}
+            <p onClick={()=>navigate('/login')}>login</p>
+            <p onClick={logout}>logout</p>
         </NavWrapper>
     </HeadWrapper>)
 }

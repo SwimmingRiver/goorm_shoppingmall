@@ -1,34 +1,28 @@
 import { useEffect, useState } from "react";
 import ItemList from "./ItemList";
+import { useSelector } from "react-redux";
 
 
     
 const Main=()=>{
-const [productArr,setProductArr] = useState([]);
+
+const productArr = useSelector((state)=>state.items);
 const [showingList,setShowingList]=useState([]);
 const [categories,setCategories]=useState('');
-const loadProductData=async()=>{
-    try{
-        const res = await fetch('https://fakestoreapi.com/products');
-        const data = await res.json();
-        setProductArr(()=>[...data]);
-    }catch(error){
-        console.error(error);
-    }
-};
-useEffect(()=>{
-    loadProductData();
-},[]);
 
 useEffect(()=>{
+    setShowingList(()=>[...productArr])
+},[productArr])
+useEffect(()=>{
+    if(categories===""){
+        setShowingList(()=>[...productArr])
+    }
     if(categories!==""){
     let arr = productArr.filter((v)=>v.category === categories);
     setShowingList(()=>[...arr]);
     }
-    else{
-        setShowingList(()=>[...productArr])
-    }
-},[showingList]);
+},[categories]);
+
 return(
     <>
     <h1>Main/products</h1>

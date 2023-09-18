@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const CardWrapper = styled.div`
@@ -13,12 +14,12 @@ const StyledImg = styled.img`
 `;
 
 const Card=(props)=>{
+    const navigate = useNavigate();
     return(
     <CardWrapper>
-        <h1>{props.id}</h1>
         <h1>{props.title}</h1>
         <StyledImg src={props.image} alt={props.title}/>
-        <button>장바구니 담기</button>
+        <button onClick={()=>{navigate(`/item/${props.id}`)}}>장바구니 담기</button>
         <h1>${props.price}</h1>
     </CardWrapper>
     )
