@@ -12,7 +12,7 @@ const userSlice = createSlice({
             return state = {email:action.payload.user.email};
         },
         logOut:(state)=>{
-            state = null;
+            state.email = null;
         },
     }
 })

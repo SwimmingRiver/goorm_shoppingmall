@@ -3,6 +3,7 @@ import itemSlice from "./reducer/item";
 import Routers from "./routers/Routers";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import './App.css';
 
 
 function App() {

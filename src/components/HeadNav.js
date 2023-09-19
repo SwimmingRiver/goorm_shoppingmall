@@ -6,17 +6,18 @@ import { useDispatch, useSelector } from "react-redux";
 import userSlice from "../reducer/user";
 
 const HeadWrapper = styled.div`
-  border:solid 1px black;
   display:flex;
   justify-content:space-between;
   align-items:center;
   width:100vw;
   padding:auto;
+  box-shadow:0px 5px 10px rgba(0, 0, 0, 0.2)
 `;
 const NavWrapper = styled.div`
     display:flex;
     justify-content:space-between;
-    width:10vw;
+    width:3vw;
+    margin-right:100px;
 
 `;
 const HeadNav=()=>{
@@ -31,13 +32,26 @@ const HeadNav=()=>{
             console.error(error);
         }
     }
+    const ClickCart=()=>{
+        loggedUser.email?navigate(`/cart/${loggedUser.email}`):alert('로그인이 필요합니다.')}
+    
     return(<HeadWrapper>
-        <h1 onClick={()=>navigate('/')}>shop</h1>
+        <h1 id="title"style={{cursor:"pointer"}} onClick={()=>navigate('/')}>shop</h1>
         <NavWrapper>
-            <p>cart</p>
-            {loggedUser?<p>{loggedUser.email}</p>:null}
-            <p onClick={()=>navigate('/login')}>login</p>
-            <p onClick={logout}>logout</p>
+            <span class="material-symbols-outlined" style={{cursor:"pointer"}} onClick={ClickCart}>shopping_cart</span>
+            
+            {loggedUser.email?(
+            <>
+            <p>{loggedUser.email}</p>
+            <span class="material-symbols-outlined" style={{cursor:"pointer"}}onClick={()=>{
+                return logout()
+                }}>logout</span>
+            </>)
+            :
+            <span class="material-symbols-outlined" style={{cursor:"pointer"}}onClick={()=>navigate('/login')}>login</span>
+
+            }
+            
         </NavWrapper>
     </HeadWrapper>)
 }
