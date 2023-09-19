@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import userSlice from "../reducer/user";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import SignUp from "./signUp";
+
 
 const Login=()=>{
     const [email,setEmail]=useState('');
@@ -19,7 +19,7 @@ const Login=()=>{
     
     const submit=async()=>{
         try{
-            const user =await signInWithEmailAndPassword(
+            const user = await signInWithEmailAndPassword(
                 auth,
                 email,
                 password,
